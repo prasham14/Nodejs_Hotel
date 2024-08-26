@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
 const db = require("./db");
-
+require("dotenv").config();
 //  body parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-const PORT = 3000;
-
+const PORT = process.env.PORT || 3000;
 //  routes k lia import
 const personRoutes = require("./routes/personroutes");
 app.use("/person", personRoutes);
@@ -19,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 //  activating server
+
 app.listen(PORT, () => {
   console.log("Server started at 3000");
 });

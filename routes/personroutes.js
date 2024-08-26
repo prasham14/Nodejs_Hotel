@@ -51,6 +51,14 @@ router.put("/:id", async (req, res) => {
   try {
     const personID = req.params.id;
     const updatedPersonData = req.body;
+    const isAvailable = await Person.findById(personID);
+    console.log(isAvailable);
+    if (!isAvailable) {
+      return res.status(404).json({
+        success: false,
+        message: "id is incorrect",
+      });
+    }
     const response = await Person.findByIdAndUpdate(
       personID,
       updatedPersonData,
@@ -83,6 +91,5 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 //  checking git works or not
 module.exports = router;
